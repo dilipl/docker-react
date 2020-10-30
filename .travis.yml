@@ -1,0 +1,9 @@
+sudo: required # sudo is required
+services: # install docker
+    - docker
+
+before_install: # build the dev verion, so we can run the tests. using tag so we can start it
+    - docker build -t dilipl/docker-react -f Dockerfile.dev .
+
+script: # A series of commands to run tests. -e flag indicates it is in CI and returns, when done
+    - docker run -e CI=true dilipl/docker-react npm run test
