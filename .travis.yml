@@ -7,3 +7,16 @@ before_install: # build the dev verion, so we can run the tests. using tag so we
 
 script: # A series of commands to run tests. -e flag indicates it is in CI and returns, when done
     - docker run -e CI=true dilipl/docker-react npm run test
+
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-1"
+    app: "docker"
+    env: "Docker-env"
+    bucket_name: "elasticbeanstalk-us-east-1-821957462552"
+    bucket_path: "docker"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: 
+        secure: "$AWS_SECRET_KEY"
