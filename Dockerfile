@@ -6,8 +6,9 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Each From terminates the previous block
+# Each From terminates the previous block, expose is instruction to elasticbeanstalk only
 FROM nginx
+EXPOSE 80
 # copy /app/build contents that was built in previous stage to nginx's html folder
 COPY --from=builder /app/build /usr/share/nginx/html
 #No need to start nginx as that happens automatically
